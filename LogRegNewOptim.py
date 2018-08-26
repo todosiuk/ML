@@ -79,21 +79,6 @@ y, X = dmatrices(formula, A, return_type='dataframe')
 X.head(100)
 
 
-# like dividing by zero (Wtff omgggggg universe collapses)
-def catch_singularity(f):
-    '''Silences LinAlg Errors and throws a warning instead.'''
-
-    def silencer(*args, **kwargs):
-        try:
-            return f(*args, **kwargs)
-        except np.linalg.LinAlgError:
-            warnings.warn('Algorithm terminated - singular Hessian!')
-            return args[0]
-
-    return silencer
-
-
-@catch_singularity
 def newton_step(curr, X, lam=None):
     '''One naive step of Newton's Method'''
 
